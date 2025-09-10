@@ -1,5 +1,16 @@
 #! /usr/bin/env bash
 
+# This scripts deploys a new version of the application with zero downtime.
+# It assumes that the application binary is located at ./bin/nodowntime
+# and that it listens on ports 5555 and 5556.
+# It also assumes that nginx is configured to proxy requests to the application
+# and that the nginx configuration file is located at ./nginx.conf.
+# The nginx configuration should have a symbolic to link to /etc/nginx/sites-enabled/
+# and should be reloaded after updating the configuration.
+#
+# For a brief time, both the old and new instances will be running,
+# but nginx will only route traffic to one.
+
 set -euo pipefail
 
 app_bin=./bin/nodowntime
